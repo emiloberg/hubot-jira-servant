@@ -280,7 +280,7 @@ module.exports = function(robot) {
 					if (diff === 0 ) {
 						throw "You really should try to give me at least one day to search for. I can't really do anything with this information, can I?";
 					} else if (diff < 0) {
-						throw "Ridiculous! the start date you gave me happens after the end date. What am I supposed to do with that? Huh?" ;
+						throw 'Ridiculous! the start date you gave me happens after the end date. What am I supposed to do with that? Huh?';
 					}
 				})
 				.then(function () {
@@ -334,7 +334,7 @@ function doLookup(res, dateMax, dateMin) {
 		.then(function (issues) {
 
 			if(issues.length) {
-				utils.sendMessages(res, issues)
+				utils.sendMessages(res, issues);
 			} else {
 				res.send('Nope, nothing found for those dates.');
 			}

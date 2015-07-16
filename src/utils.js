@@ -107,7 +107,7 @@ const utils = {
 		});
 
 		chunkedMessages.forEach(message => {
-			res.send(message)
+			res.send(message);
 		});
 	}
 
