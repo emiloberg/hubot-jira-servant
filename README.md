@@ -10,10 +10,10 @@ Perfect for answering the question "What happend yesterday?"
 * `hubot jira changed` - Get yesterdays changed jira issues
 * `hubot jira changed [days]` - Get jira issues changed the passed [days] days.
 * `hubot jira changed [date] [date]` - Get jira issues changed the day between [date] and [date]
-* `hubot jira changed [date] [days]` - Get jira issues changed the day between [[days] days before [date]] and [date]
+* `hubot jira changed [date] [days]` - Get jira issues changed between [date] and [days] days before that.
 * `hubot jira changed [date]` - Get jira issues changed the day before [date]
 
-You may also use `j` for short, e.g. `hubot j changed`.
+`[days]` are numbers, e.g. `5` and `[date]` is a string ([the correct way to print dates](https://sv.wikipedia.org/wiki/ISO_8601)), e.g. `2015-03-29`. You may also use `j` for short, e.g. `hubot j changed`.
 
 ## Installation
 
