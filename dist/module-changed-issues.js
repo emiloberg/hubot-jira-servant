@@ -16,10 +16,11 @@
 // Author:
 //   Emil Öberg <emil.oberg@monator.com>
 
-// Internal
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// Internal
 
 var _jira = require('./jira');
 
@@ -72,37 +73,7 @@ settings.urlToIssue = 'https://' + process.env.HUBOT_JIRA_HOST + '/browse/';
 		var templatePath = path.resolve(__dirname, 'templates', settings.paths.templates[key]);
 		settings.templates[key] = handlebars.compile(fs.readFileSync(templatePath, { encoding: 'UTF-8' }));
 	});
-
-	//let testDate = '2015-07-10';
-	//let dateMax = moment(testDate).format("YYYY-MM-DD");
-	//let dateMin = moment(testDate).subtract(1, 'days').format("YYYY-MM-DD");
-
-	//botChangedIssues(dateMax, dateMin);
 })();
-
-/**
- * Respond to request for changed issues
- *
- * @param dateMax
- * @param dateMin
- */
-//function botChangedIssues(dateMax, dateMin) {
-//	getChangedIssues(dateMax, dateMin)
-//		.then(function (issues) {
-//			return parseChangedIssues(issues, dateMax, dateMin);
-//		})
-//		.then(function (issues) {
-//			return renderTemplate(issues, 'changedIssues');
-//		})
-//		.then(function (issues) {
-//			issues.forEach(issue => {
-//				console.log(issue);
-//			});
-//		})
-//		.catch(function (err) {
-//			utils.printErr(err);
-//		});
-//}
 
 /**
  * Get changed issues from Jira
@@ -134,7 +105,7 @@ function getChangedIssues(dateMax, dateMin) {
  * @param dateMax
  * @param dateMin
  * @param historyFieldBlacklist
- * @returns {Array.<T>}
+ * @returns {Array.<string>}
  */
 function parseChangedIssues(issues, dateMax, dateMin) {
 	var historyFieldBlacklist = arguments.length <= 3 || arguments[3] === undefined ? settings.historyFieldBlacklist : arguments[3];
@@ -349,6 +320,13 @@ module.exports = function (robot) {
 	});
 };
 
+/**
+ * Do lookup and send response
+ *
+ * @param res
+ * @param dateMax
+ * @param dateMin
+ */
 function doLookup(res, dateMax, dateMin) {
 	res.send('Hang tight while I look up ' + _utils2['default'].dateToFriendlyDate(dateMin) + ' to ' + _utils2['default'].dateToFriendlyDate(dateMax));
 	getChangedIssues(dateMax, dateMin).then(function (issues) {

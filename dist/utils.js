@@ -46,7 +46,7 @@ var utils = {
 				console.dir(err);
 			}
 		}
-		process.exit(1);
+		process.exit(1); //eslint-disable-line no-process-exit
 	},
 	dateToFriendlyDate: function dateToFriendlyDate(dateStr) {
 		if (dateStr === moment().format('YYYY-MM-DD')) {
