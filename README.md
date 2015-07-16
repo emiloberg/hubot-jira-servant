@@ -73,3 +73,6 @@ PROJ-1161 Build controller for medical device
     Erik Andersson
         changed 'status' to 'In Progress'
 ```
+
+## Development
+This module is developed in EcmaScript 2015. All source files lives in `/src` and gets transpiled into `/dist`. Use provided gulp script (by running `gulp` in the root folder of the module) to start a watcher which automagically transpiles files when they're changed.
