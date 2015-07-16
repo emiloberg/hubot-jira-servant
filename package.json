@@ -1,0 +1,46 @@
+{
+  "name": "hubot-jira-servant",
+  "description": "Connects Hubot with Jira",
+  "version": "1.0.0",
+  "author": "Emil Oberg <emil.oberg@monator.com>",
+  "license": "MIT",
+
+  "keywords": ["hubot, hubot-scripts", "jira"],
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/emiloberg/hubot-jira-servant.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/emiloberg/hubot-jira-servant/issues"
+  },
+
+  "dependencies": {
+    "es6-promise": "^2.3.0",
+    "handlebars": "^3.0.3",
+    "html-entities": "^1.1.2",
+    "swag": "^0.7.0",
+    "uuid": "^2.0.1"
+  },
+
+  "peerDependencies": {
+    "hubot": "2.x"
+  },
+
+  "devDependencies": {
+    "chalk": "^1.0.0",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-eslint": "^0.13.2",
+    "run-sequence": "^1.1.0"
+  },
+
+  "main": "index.js",
+
+  "scripts": {
+    "test": "grunt test"
+  }
+}
+

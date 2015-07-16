@@ -1,0 +1,12 @@
+{{statusEmoji}} *{{key}} {{{summary}}}*
+    {{url}}
+{{#each history}}
+    {{actor}}
+{{#each entries}}
+{{#is action 'created'}}
+        {{action}} the issue
+{{else}}
+        {{action}} '{{field}}' to '{{{truncate toNoLb 70 "..."}}}'
+{{/is}}
+{{/each}}
+{{/each}}
