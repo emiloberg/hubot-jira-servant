@@ -1,5 +1,7 @@
 'use strict';
 
+const SLACK_MAX_MESSAGE_SIZE = 4000;
+
 let moment = require('moment');
 
 let statusToEmoji = {
@@ -57,14 +59,58 @@ const utils = {
 	validateDateIsntFuture(dateStr) {
 		return new Promise(function (resolve, reject) {
 			if(!moment(dateStr).isValid()) {
-				return reject("That's not a real date");
+				return reject("This is pointless. You're not giving me real dates to work with!");
 			}
 			if (moment().diff(dateStr, 'days') < 0) {
 				return reject("You can't really search for events which happens in the future, can you silly?");
 			}
 			resolve(dateStr);
 		});
+	},
+
+	/**
+	 * Send messages
+	 *
+	 * Slack has a limit on
+	 * 	1) The number of messages you may post after each other
+	 * 		(this number is actually 1, but Slack does let you burst
+	 * 		a couple of messages for a short period of time).
+	 * 	2) The maximum size of each message
+	 * 		(16kb. Slack recommends the messages to be limitede to
+	 * 		4000 characters).
+	 *
+	 * To comply with these limits we'll combine messages up to
+	 * 4000 characters into a single message. Messages are
+	 * delimited by two linebreaks.
+	 *
+	 * @param res
+	 * @param messages
+	 */
+	sendMessages(res, messages) {
+		let chunkedMessages = [];
+		let curCombinedLength = 0;
+		let index = 0;
+
+		messages.forEach(issue => {
+			if (curCombinedLength + issue.length > SLACK_MAX_MESSAGE_SIZE) {
+				index = index + 1;
+				curCombinedLength = 0;
+			}
+
+			if (chunkedMessages[index]) {
+				chunkedMessages[index] = chunkedMessages[index] + '\n\n' + issue;
+			} else {
+				chunkedMessages[index] = issue;
+			}
+
+			curCombinedLength = curCombinedLength + issue.length;
+		});
+
+		chunkedMessages.forEach(message => {
+			res.send(message)
+		});
 	}
+
 };
 
 export default utils;

@@ -283,9 +283,9 @@ module.exports = function (robot) {
 			}).then(function () {
 				var diff = moment(dateMax).diff(dateMin, 'days');
 				if (diff === 0) {
-					throw 'You really should search for at least one day';
+					throw 'You really should try to give me at least one day to search for. I can\'t really do anything with this information, can I?';
 				} else if (diff < 0) {
-					throw 'Ehm... start date must be before end date stupid';
+					throw 'Ridiculous! the start date you gave me happens after the end date. What am I supposed to do with that? Huh?';
 				}
 			}).then(function () {
 				doLookup(res, dateMax, dateMin);
@@ -336,9 +336,7 @@ function doLookup(res, dateMax, dateMin) {
 	}).then(function (issues) {
 
 		if (issues.length) {
-			issues.forEach(function (issue) {
-				res.send(issue);
-			});
+			_utils2['default'].sendMessages(res, issues);
 		} else {
 			res.send('Nope, nothing found for those dates.');
 		}
