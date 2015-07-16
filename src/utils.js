@@ -1,3 +1,5 @@
+'use strict';
+
 let moment = require('moment');
 
 let statusToEmoji = {
@@ -13,7 +15,7 @@ const utils = {
 		return moment(jiraDateStr, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
 	},
 	removeLineBreaks(str) {
-		return str.replace(/(\r\n|\n|\r)/gm,' ');
+		return str.replace(/(\r\n|\n|\r)/gm, ' ');
 	},
 	statusToEmoji(status) {
 		if(statusToEmoji.hasOwnProperty(status)) {
@@ -41,7 +43,7 @@ const utils = {
 				console.dir(err);
 			}
 		}
-		process.exit(1);
+		process.exit(1); //eslint-disable-line no-process-exit
 	},
 	dateToFriendlyDate(dateStr) {
 		if (dateStr === moment().format('YYYY-MM-DD')) {
@@ -55,7 +57,7 @@ const utils = {
 	validateDateIsntFuture(dateStr) {
 		return new Promise(function (resolve, reject) {
 			if(!moment(dateStr).isValid()) {
-				return reject("That's not a real date")
+				return reject("That's not a real date");
 			}
 			if (moment().diff(dateStr, 'days') < 0) {
 				return reject("You can't really search for events which happens in the future, can you silly?");

@@ -16,6 +16,8 @@
 // Author:
 //   Emil Öberg <emil.oberg@monator.com>
 
+'use strict';
+
 // Internal
 import jira from './jira';
 import utils from './utils';
@@ -89,7 +91,7 @@ function getChangedIssues(dateMax, dateMin) {
 			if (err) {
 				return reject(err);
 			}
-			resolve(issues.issues)
+			resolve(issues.issues);
 		});
 	});
 }
@@ -102,7 +104,7 @@ function getChangedIssues(dateMax, dateMin) {
  * @param dateMax
  * @param dateMin
  * @param historyFieldBlacklist
- * @returns {Array.<T>}
+ * @returns {Array.<string>}
  */
 function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = settings.historyFieldBlacklist) {
 	return issues.map(issue => {
@@ -127,7 +129,7 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 				key: issue.fields.parent.key,
 				summary: entities.decode(issue.fields.parent.fields.summary.trim()),
 				summaryNoLb: utils.removeLineBreaks(entities.decode(issue.fields.parent.fields.summary.trim()))
-			}
+			};
 		}
 
 		/**
@@ -213,14 +215,14 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 				if (!nestedHistory[historyItem.actor]) {
 					nestedHistory[historyItem.actor] = [];
 				}
-				nestedHistory[historyItem.actor].push(historyItem)
+				nestedHistory[historyItem.actor].push(historyItem);
 			});
 
 			Object.keys(nestedHistory).forEach(key => {
 				out.history.push({
 					actor: key,
 					entries: nestedHistory[key]
-				})
+				});
 			});
 
 		}
@@ -271,20 +273,20 @@ module.exports = function(robot) {
 			dateMax = matchDateDate[2];
 			utils.validateDateIsntFuture(dateMax)
 				.then(function () {
-					return utils.validateDateIsntFuture(dateMin)
+					return utils.validateDateIsntFuture(dateMin);
 				})
 				.then(function () {
 					let diff = moment(dateMax).diff(dateMin, 'days');
 					if (diff === 0 ) {
-						throw 'You really should search for at least one day'
+						throw 'You really should search for at least one day';
 					} else if (diff < 0) {
-						throw 'Ehm... start date must be before end date stupid'
+						throw 'Ehm... start date must be before end date stupid';
 					}
 				})
 				.then(function () {
 					doLookup(res, dateMax, dateMin);
 				})
-				.catch(function (err) { res.send(err) });
+				.catch(function (err) { res.send(err); });
 		} else if(matchDateNumber) {
 			dateMax = matchDateNumber[1];
 			utils.validateDateIsntFuture(dateMax)
@@ -292,7 +294,7 @@ module.exports = function(robot) {
 					dateMin = moment(dateMax).subtract(matchDateNumber[2], 'days').format('YYYY-MM-DD');
 					doLookup(res, dateMax, dateMin);
 				})
-				.catch(function (err) { res.send(err) });
+				.catch(function (err) { res.send(err); });
 		} else if(matchDate) {
 			dateMax = matchDate[1];
 			utils.validateDateIsntFuture(dateMax)
@@ -300,7 +302,7 @@ module.exports = function(robot) {
 					dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
 					doLookup(res, dateMax, dateMin);
 				})
-				.catch(function (err) { res.send(err) });
+				.catch(function (err) { res.send(err); });
 		} else if(matchNumber) {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(matchNumber[1], 'days').format('YYYY-MM-DD');
@@ -310,7 +312,6 @@ module.exports = function(robot) {
 			dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
 			doLookup(res, dateMax, dateMin);
 		}
-		
 	});
 };
 
@@ -334,7 +335,7 @@ function doLookup(res, dateMax, dateMin) {
 
 			if(issues.length) {
 				issues.forEach(issue => {
-					res.send(issue)
+					res.send(issue);
 				});
 			} else {
 				res.send('Nope, nothing found for those dates.');
