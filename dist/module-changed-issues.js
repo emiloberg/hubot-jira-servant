@@ -83,6 +83,7 @@ settings.urlToIssue = 'https://' + process.env.HUBOT_JIRA_HOST + '/browse/';
  * @returns {Promise}
  */
 function getChangedIssues(dateMax, dateMin) {
+	// TODO: REMOVE EHP FROM HERE AND MOVE INTO AN ENVIRONMENT VARIABLE.
 	var jql = 'project = EHP AND updated > ' + dateMin + ' AND updated < ' + dateMax;
 	return new Promise(function (resolve, reject) {
 		_jira2['default'].search.search({
@@ -288,7 +289,7 @@ module.exports = function (robot) {
 					throw 'Ridiculous! the start date you gave me happens after the end date. What am I supposed to do with that? Huh?';
 				}
 			}).then(function () {
-				doLookup(res, dateMax, dateMin);
+				doLookup(robot, res, dateMax, dateMin);
 			})['catch'](function (err) {
 				res.send(err);
 			});
@@ -296,7 +297,7 @@ module.exports = function (robot) {
 			dateMax = matchDateNumber[1];
 			_utils2['default'].validateDateIsntFuture(dateMax).then(function () {
 				dateMin = moment(dateMax).subtract(matchDateNumber[2], 'days').format('YYYY-MM-DD');
-				doLookup(res, dateMax, dateMin);
+				doLookup(robot, res, dateMax, dateMin);
 			})['catch'](function (err) {
 				res.send(err);
 			});
@@ -304,18 +305,18 @@ module.exports = function (robot) {
 			dateMax = matchDate[1];
 			_utils2['default'].validateDateIsntFuture(dateMax).then(function () {
 				dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-				doLookup(res, dateMax, dateMin);
+				doLookup(robot, res, dateMax, dateMin);
 			})['catch'](function (err) {
 				res.send(err);
 			});
 		} else if (matchNumber) {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(matchNumber[1], 'days').format('YYYY-MM-DD');
-			doLookup(res, dateMax, dateMin);
+			doLookup(robot, res, dateMax, dateMin);
 		} else {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-			doLookup(res, dateMax, dateMin);
+			doLookup(robot, res, dateMax, dateMin);
 		}
 	});
 };
@@ -327,7 +328,7 @@ module.exports = function (robot) {
  * @param dateMax
  * @param dateMin
  */
-function doLookup(res, dateMax, dateMin) {
+function doLookup(robot, res, dateMax, dateMin) {
 	res.send('Hang tight while I look up ' + _utils2['default'].dateToFriendlyDate(dateMin) + ' to ' + _utils2['default'].dateToFriendlyDate(dateMax));
 	getChangedIssues(dateMax, dateMin).then(function (issues) {
 		return parseChangedIssues(issues, dateMax, dateMin);
@@ -336,7 +337,7 @@ function doLookup(res, dateMax, dateMin) {
 	}).then(function (issues) {
 
 		if (issues.length) {
-			_utils2['default'].sendMessages(res, issues);
+			_utils2['default'].sendMessages(robot, res, issues);
 		} else {
 			res.send('Nope, nothing found for those dates.');
 		}

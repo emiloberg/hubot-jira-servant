@@ -1,3 +1,4 @@
+{{!--
 {{statusEmoji}} *{{key}} {{{summary}}}*
     {{url}}
 {{#each history}}
@@ -10,3 +11,17 @@
 {{/is}}
 {{/each}}
 {{/each}}
+--}}
+{
+    "fallback": "{{key}} {{summary}} {{url}}",
+    "title": "{{key}} - {{summary}}",
+    "title_link": "{{url}}",
+    "fields": [
+        {
+            "title": "Changed",
+            "value": "{{#each history}}{{actor}}\n{{#each entries}}   {{#is action 'created'}}created the issue{{else}}{{field}} → {{{truncate toNoLb 70 "..."}}}{{/is}}\n{{/each}}{{/each}}",
+            "short": true
+        }
+    ],
+    "color": "#7CD197"
+}

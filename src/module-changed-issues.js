@@ -81,6 +81,7 @@ settings.urlToIssue = `https://${process.env.HUBOT_JIRA_HOST}/browse/`;
  * @returns {Promise}
  */
 function getChangedIssues(dateMax, dateMin) {
+	// TODO: REMOVE EHP FROM HERE AND MOVE INTO AN ENVIRONMENT VARIABLE.
 	let jql = `project = EHP AND updated > ${dateMin} AND updated < ${dateMax}`;
 	return new Promise(function (resolve, reject) {
 		jira.search.search({
@@ -272,9 +273,7 @@ module.exports = function(robot) {
 			dateMin = matchDateDate[1];
 			dateMax = matchDateDate[2];
 			utils.validateDateIsntFuture(dateMax)
-				.then(function () {
-					return utils.validateDateIsntFuture(dateMin);
-				})
+				.then(() => utils.validateDateIsntFuture(dateMin))
 				.then(function () {
 					let diff = moment(dateMax).diff(dateMin, 'days');
 					if (diff === 0 ) {
@@ -284,7 +283,7 @@ module.exports = function(robot) {
 					}
 				})
 				.then(function () {
-					doLookup(res, dateMax, dateMin);
+					doLookup(robot, res, dateMax, dateMin);
 				})
 				.catch(function (err) { res.send(err); });
 		} else if(matchDateNumber) {
@@ -292,7 +291,7 @@ module.exports = function(robot) {
 			utils.validateDateIsntFuture(dateMax)
 				.then(function () {
 					dateMin = moment(dateMax).subtract(matchDateNumber[2], 'days').format('YYYY-MM-DD');
-					doLookup(res, dateMax, dateMin);
+					doLookup(robot, res, dateMax, dateMin);
 				})
 				.catch(function (err) { res.send(err); });
 		} else if(matchDate) {
@@ -300,17 +299,17 @@ module.exports = function(robot) {
 			utils.validateDateIsntFuture(dateMax)
 				.then(function () {
 					dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-					doLookup(res, dateMax, dateMin);
+					doLookup(robot, res, dateMax, dateMin);
 				})
 				.catch(function (err) { res.send(err); });
 		} else if(matchNumber) {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(matchNumber[1], 'days').format('YYYY-MM-DD');
-			doLookup(res, dateMax, dateMin);
+			doLookup(robot, res, dateMax, dateMin);
 		} else {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-			doLookup(res, dateMax, dateMin);
+			doLookup(robot, res, dateMax, dateMin);
 		}
 	});
 };
@@ -322,7 +321,7 @@ module.exports = function(robot) {
  * @param dateMax
  * @param dateMin
  */
-function doLookup(res, dateMax, dateMin) {
+function doLookup(robot, res, dateMax, dateMin) {
 	res.send('Hang tight while I look up ' + utils.dateToFriendlyDate(dateMin) + ' to ' + utils.dateToFriendlyDate(dateMax));
 	getChangedIssues(dateMax, dateMin)
 		.then(function (issues) {
@@ -334,7 +333,7 @@ function doLookup(res, dateMax, dateMin) {
 		.then(function (issues) {
 
 			if(issues.length) {
-				utils.sendMessages(res, issues);
+				utils.sendMessages(robot, res, issues);
 			} else {
 				res.send('Nope, nothing found for those dates.');
 			}
