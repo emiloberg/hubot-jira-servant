@@ -2,7 +2,9 @@
 
 Connects Hubot with Jira. 
 
-Made for Slack but should be usable with other interfaces as well. Still a work in progress
+# WORK IN PROGRESS! But in active development. Wait a few weeks for stable version.
+
+Made for Slack but should be usable with other interfaces as well.
 
 ### Changed issues commands:
 Perfect for answering the question "What happend yesterday?"
@@ -39,9 +41,9 @@ npm install
 Start Hubot with these 3 environment variables:
 
 ```
-JIRA_HOST=your-jira.atlassian.net
-JIRA_USER=username
-JIRA_PASS=password
+HUBOT_JIRA_HOST=your-jira.atlassian.net
+HUBOT_JIRA_USER=username
+HUBOT_JIRA_PASS=password
 ```
 
 ## Sample Interaction
