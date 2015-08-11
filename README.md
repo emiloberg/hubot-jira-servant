@@ -3,7 +3,7 @@
 Connects Hubot with Jira.
 
 ## Made for Slack
-Therefor you need to start Hubot with the [Slack adapter](https://www.npmjs.com/package/hubot-slack) to use this plugin. With some modifications it should work with other adapters as well.
+Therefore you need to start Hubot with the [Slack adapter](https://www.npmjs.com/package/hubot-slack) to use this plugin. With some modifications it should work with other adapters as well.
 
 ## Work in progress
 This is very much a work in progress. Currently displaying _changed_ issues (e.g. "what issues was changed yesterday?")  is supported.
