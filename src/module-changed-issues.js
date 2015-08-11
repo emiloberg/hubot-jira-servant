@@ -7,11 +7,11 @@
 //   HUBOT_JIRA_HOST
 //
 // Commands:
-//   hubot jira changed - Get yesterdays changed jira issues
-//   hubot jira changed <days> - Get jira issues changed the passed <days> days.
-//   hubot jira changed <date> <date> - Get jira issues changed the day between <date> and <date>
-//   hubot jira changed <date> <days> - Get jira issues changed the day between [<days> days before <date>] and <date>
-//   hubot jira changed <date> - Get jira issues changed the day before <date>
+//   hubot jira changed [project] - Get yesterdays changed jira issues
+//   hubot jira changed <days> [project] - Get jira issues changed the passed <days> days.
+//   hubot jira changed <date> <date> [project] - Get jira issues changed the day between <date> and <date>
+//   hubot jira changed <date> <days> [project] - Get jira issues changed the day between [<days> days before <date>] and <date>
+//   hubot jira changed <date> [project] - Get jira issues changed the day before <date>
 //
 // Author:
 //   Emil Öberg <emil.oberg@monator.com>
@@ -80,9 +80,13 @@ settings.urlToIssue = `https://${process.env.HUBOT_JIRA_HOST}/browse/`;
  * @param dateMin
  * @returns {Promise}
  */
-function getChangedIssues(dateMax, dateMin) {
-	// TODO: REMOVE EHP FROM HERE AND MOVE INTO AN ENVIRONMENT VARIABLE.
-	let jql = `project = EHP AND updated > ${dateMin} AND updated < ${dateMax}`;
+function getChangedIssues(dateMax, dateMin, project = undefined) {
+
+	if (project === undefined) {
+		project = process.env.HUBOT_JIRA_DEFAULT_PROJECT;
+	}
+
+	let jql = `project = ${project} AND updated > ${dateMin} AND updated < ${dateMax}`;
 	return new Promise(function (resolve, reject) {
 		jira.search.search({
 			jql: jql,
@@ -109,15 +113,11 @@ function getChangedIssues(dateMax, dateMin) {
  */
 function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = settings.historyFieldBlacklist) {
 	return issues.map(issue => {
+
 		let flatHistory = [];
 		let out = {
-			summary: entities.decode(issue.fields.summary.trim()),
 			summaryNoLb: utils.removeLineBreaks(entities.decode(issue.fields.summary.trim())),
-			key: issue.key,
-			type: issue.fields.issuetype.name,
-			status: issue.fields.status.name,
-			statusEmoji: utils.statusToEmoji(issue.fields.status.name),
-			url: `${settings.urlToIssue}${issue.key}`,
+			urlToIssue: `${settings.urlToIssue}${issue.key}`,
 			parent: undefined,
 			history: []
 		};
@@ -127,8 +127,6 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 		 */
 		if (issue.fields.parent) {
 			out.parent = {
-				key: issue.fields.parent.key,
-				summary: entities.decode(issue.fields.parent.fields.summary.trim()),
 				summaryNoLb: utils.removeLineBreaks(entities.decode(issue.fields.parent.fields.summary.trim()))
 			};
 		}
@@ -164,10 +162,9 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 							action: 'changed',
 							actor: history.author.displayName,
 							field: historyItem.field,
-							from: historyItem.fromString ? entities.decode(historyItem.fromString) : '',
-							fromNoLb: utils.removeLineBreaks(historyItem.fromString ? entities.decode(historyItem.fromString) : ''),
-							to: historyItem.toString ? entities.decode(historyItem.toString) : '',
-							toNoLb: utils.removeLineBreaks(historyItem.toString ? entities.decode(historyItem.toString) : '')
+							fromString: historyItem.fromString ? entities.decode(historyItem.fromString) : '',
+							toString: historyItem.toString ? entities.decode(historyItem.toString) : '',
+							original: history
 						});
 					});
 				}
@@ -227,13 +224,16 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 			});
 
 		}
-		return out;
+
+		issue._custom = out;
+		
+		return issue;
 	})
 	/**
 	 * Remove issues without history (e.g. where the history entries are
 	 * blacklisted).
 	 */
-	.filter(issue => issue.history.length > 0);
+	.filter(issue => issue._custom.history.length > 0);
 }
 
 
@@ -264,10 +264,11 @@ module.exports = function(robot) {
 		let dateMax;
 		let dateMin;
 
-		let matchDateDate		= command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d{4}-\d{1,2}-\d{1,2})/i);	// jira changed 2014-01-01 2013-12-30
-		let matchDateNumber		= command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d+)/i); 					// jira changed 2014-01-01 5
-		let matchDate			= command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2})/i); 							// jira changed 2014-01-01
-		let matchNumber			= command.match(/j(?:ira)* changed (\d+)/i); 											// jira changed 2
+		let matchDateDate		= command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d{4}-\d{1,2}-\d{1,2})( [A-Za-z]{1,10})?/i);	// jira changed 2014-01-01 2013-12-30
+		let matchDateNumber		= command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d+)( [A-Za-z]{1,10})?/i); 						// jira changed 2014-01-01 5
+		let matchDate			= command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2})( [A-Za-z]{1,10})?/i); 							// jira changed 2014-01-01
+		let matchNumber			= command.match(/j(?:ira)* changed (\d+)( [A-Za-z]{1,10})?/i); 												// jira changed 2
+		let matchDefault		= command.match(/j(?:ira)* changed( [A-Za-z]{1,10})?/i); 													// jira changed
 
 		if(matchDateDate) {
 			dateMin = matchDateDate[1];
@@ -283,7 +284,7 @@ module.exports = function(robot) {
 					}
 				})
 				.then(function () {
-					doLookup(robot, res, dateMax, dateMin);
+					doLookup(robot, res, dateMax, dateMin, matchDateDate[3]);
 				})
 				.catch(function (err) { res.send(err); });
 		} else if(matchDateNumber) {
@@ -291,7 +292,7 @@ module.exports = function(robot) {
 			utils.validateDateIsntFuture(dateMax)
 				.then(function () {
 					dateMin = moment(dateMax).subtract(matchDateNumber[2], 'days').format('YYYY-MM-DD');
-					doLookup(robot, res, dateMax, dateMin);
+					doLookup(robot, res, dateMax, dateMin, matchDateNumber[3]);
 				})
 				.catch(function (err) { res.send(err); });
 		} else if(matchDate) {
@@ -299,17 +300,19 @@ module.exports = function(robot) {
 			utils.validateDateIsntFuture(dateMax)
 				.then(function () {
 					dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-					doLookup(robot, res, dateMax, dateMin);
+					doLookup(robot, res, dateMax, dateMin, matchDate[2]);
 				})
 				.catch(function (err) { res.send(err); });
 		} else if(matchNumber) {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(matchNumber[1], 'days').format('YYYY-MM-DD');
-			doLookup(robot, res, dateMax, dateMin);
-		} else {
+			doLookup(robot, res, dateMax, dateMin, matchNumber[2]);
+		} else if(matchDefault) {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-			doLookup(robot, res, dateMax, dateMin);
+			doLookup(robot, res, dateMax, dateMin, matchDefault[1]);
+		} else {
+			utils.printErrToClient("Nope, didn't understand that!");
 		}
 	});
 };
@@ -321,17 +324,20 @@ module.exports = function(robot) {
  * @param dateMax
  * @param dateMin
  */
-function doLookup(robot, res, dateMax, dateMin) {
+function doLookup(robot, res, dateMax, dateMin, project = undefined) {
 	res.send('Hang tight while I look up ' + utils.dateToFriendlyDate(dateMin) + ' to ' + utils.dateToFriendlyDate(dateMax));
-	getChangedIssues(dateMax, dateMin)
+	getChangedIssues(dateMax, dateMin, project)
 		.then(function (issues) {
 			return parseChangedIssues(issues, dateMax, dateMin);
 		})
+		//.then(function (issues) {
+		//	fs.outputJson('./sample-json.json', issues[issues.length-1]);
+		//	return issues;
+		//})
 		.then(function (issues) {
 			return renderTemplate(issues, 'changedIssues');
 		})
 		.then(function (issues) {
-
 			if(issues.length) {
 				utils.sendMessages(robot, res, issues);
 			} else {
@@ -339,6 +345,6 @@ function doLookup(robot, res, dateMax, dateMin) {
 			}
 		})
 		.catch(function (err) {
-			utils.printErr(err);
+			utils.printErrToClient(err, robot, res);
 		});
 }

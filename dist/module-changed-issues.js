@@ -7,11 +7,11 @@
 //   HUBOT_JIRA_HOST
 //
 // Commands:
-//   hubot jira changed - Get yesterdays changed jira issues
-//   hubot jira changed <days> - Get jira issues changed the passed <days> days.
-//   hubot jira changed <date> <date> - Get jira issues changed the day between <date> and <date>
-//   hubot jira changed <date> <days> - Get jira issues changed the day between [<days> days before <date>] and <date>
-//   hubot jira changed <date> - Get jira issues changed the day before <date>
+//   hubot jira changed [project] - Get yesterdays changed jira issues
+//   hubot jira changed <days> [project] - Get jira issues changed the passed <days> days.
+//   hubot jira changed <date> <date> [project] - Get jira issues changed the day between <date> and <date>
+//   hubot jira changed <date> <days> [project] - Get jira issues changed the day between [<days> days before <date>] and <date>
+//   hubot jira changed <date> [project] - Get jira issues changed the day before <date>
 //
 // Author:
 //   Emil Öberg <emil.oberg@monator.com>
@@ -83,8 +83,13 @@ settings.urlToIssue = 'https://' + process.env.HUBOT_JIRA_HOST + '/browse/';
  * @returns {Promise}
  */
 function getChangedIssues(dateMax, dateMin) {
-	// TODO: REMOVE EHP FROM HERE AND MOVE INTO AN ENVIRONMENT VARIABLE.
-	var jql = 'project = EHP AND updated > ' + dateMin + ' AND updated < ' + dateMax;
+	var project = arguments.length <= 2 || arguments[2] === undefined ? undefined : arguments[2];
+
+	if (project === undefined) {
+		project = process.env.HUBOT_JIRA_DEFAULT_PROJECT;
+	}
+
+	var jql = 'project = ' + project + ' AND updated > ' + dateMin + ' AND updated < ' + dateMax;
 	return new Promise(function (resolve, reject) {
 		_jira2['default'].search.search({
 			jql: jql,
@@ -112,15 +117,11 @@ function parseChangedIssues(issues, dateMax, dateMin) {
 	var historyFieldBlacklist = arguments.length <= 3 || arguments[3] === undefined ? settings.historyFieldBlacklist : arguments[3];
 
 	return issues.map(function (issue) {
+
 		var flatHistory = [];
 		var out = {
-			summary: entities.decode(issue.fields.summary.trim()),
 			summaryNoLb: _utils2['default'].removeLineBreaks(entities.decode(issue.fields.summary.trim())),
-			key: issue.key,
-			type: issue.fields.issuetype.name,
-			status: issue.fields.status.name,
-			statusEmoji: _utils2['default'].statusToEmoji(issue.fields.status.name),
-			url: '' + settings.urlToIssue + issue.key,
+			urlToIssue: '' + settings.urlToIssue + issue.key,
 			parent: undefined,
 			history: []
 		};
@@ -130,8 +131,6 @@ function parseChangedIssues(issues, dateMax, dateMin) {
    */
 		if (issue.fields.parent) {
 			out.parent = {
-				key: issue.fields.parent.key,
-				summary: entities.decode(issue.fields.parent.fields.summary.trim()),
 				summaryNoLb: _utils2['default'].removeLineBreaks(entities.decode(issue.fields.parent.fields.summary.trim()))
 			};
 		}
@@ -168,10 +167,9 @@ function parseChangedIssues(issues, dateMax, dateMin) {
 								action: 'changed',
 								actor: history.author.displayName,
 								field: historyItem.field,
-								from: historyItem.fromString ? entities.decode(historyItem.fromString) : '',
-								fromNoLb: _utils2['default'].removeLineBreaks(historyItem.fromString ? entities.decode(historyItem.fromString) : ''),
-								to: historyItem.toString ? entities.decode(historyItem.toString) : '',
-								toNoLb: _utils2['default'].removeLineBreaks(historyItem.toString ? entities.decode(historyItem.toString) : '')
+								fromString: historyItem.fromString ? entities.decode(historyItem.fromString) : '',
+								toString: historyItem.toString ? entities.decode(historyItem.toString) : '',
+								original: history
 							});
 						});
 					}
@@ -234,14 +232,17 @@ function parseChangedIssues(issues, dateMax, dateMin) {
 				});
 			})();
 		}
-		return out;
+
+		issue._custom = out;
+
+		return issue;
 	})
 	/**
   * Remove issues without history (e.g. where the history entries are
   * blacklisted).
   */
 	.filter(function (issue) {
-		return issue.history.length > 0;
+		return issue._custom.history.length > 0;
 	});
 }
 
@@ -271,10 +272,11 @@ module.exports = function (robot) {
 		var dateMax = undefined;
 		var dateMin = undefined;
 
-		var matchDateDate = command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d{4}-\d{1,2}-\d{1,2})/i); // jira changed 2014-01-01 2013-12-30
-		var matchDateNumber = command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d+)/i); // jira changed 2014-01-01 5
-		var matchDate = command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2})/i); // jira changed 2014-01-01
-		var matchNumber = command.match(/j(?:ira)* changed (\d+)/i); // jira changed 2
+		var matchDateDate = command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d{4}-\d{1,2}-\d{1,2})( [A-Za-z]{1,10})?/i); // jira changed 2014-01-01 2013-12-30
+		var matchDateNumber = command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2}) (\d+)( [A-Za-z]{1,10})?/i); // jira changed 2014-01-01 5
+		var matchDate = command.match(/j(?:ira)* changed (\d{4}-\d{1,2}-\d{1,2})( [A-Za-z]{1,10})?/i); // jira changed 2014-01-01
+		var matchNumber = command.match(/j(?:ira)* changed (\d+)( [A-Za-z]{1,10})?/i); // jira changed 2
+		var matchDefault = command.match(/j(?:ira)* changed( [A-Za-z]{1,10})?/i); // jira changed
 
 		if (matchDateDate) {
 			dateMin = matchDateDate[1];
@@ -289,7 +291,7 @@ module.exports = function (robot) {
 					throw 'Ridiculous! the start date you gave me happens after the end date. What am I supposed to do with that? Huh?';
 				}
 			}).then(function () {
-				doLookup(robot, res, dateMax, dateMin);
+				doLookup(robot, res, dateMax, dateMin, matchDateDate[3]);
 			})['catch'](function (err) {
 				res.send(err);
 			});
@@ -297,7 +299,7 @@ module.exports = function (robot) {
 			dateMax = matchDateNumber[1];
 			_utils2['default'].validateDateIsntFuture(dateMax).then(function () {
 				dateMin = moment(dateMax).subtract(matchDateNumber[2], 'days').format('YYYY-MM-DD');
-				doLookup(robot, res, dateMax, dateMin);
+				doLookup(robot, res, dateMax, dateMin, matchDateNumber[3]);
 			})['catch'](function (err) {
 				res.send(err);
 			});
@@ -305,18 +307,20 @@ module.exports = function (robot) {
 			dateMax = matchDate[1];
 			_utils2['default'].validateDateIsntFuture(dateMax).then(function () {
 				dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-				doLookup(robot, res, dateMax, dateMin);
+				doLookup(robot, res, dateMax, dateMin, matchDate[2]);
 			})['catch'](function (err) {
 				res.send(err);
 			});
 		} else if (matchNumber) {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(matchNumber[1], 'days').format('YYYY-MM-DD');
-			doLookup(robot, res, dateMax, dateMin);
-		} else {
+			doLookup(robot, res, dateMax, dateMin, matchNumber[2]);
+		} else if (matchDefault) {
 			dateMax = moment().format('YYYY-MM-DD');
 			dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
-			doLookup(robot, res, dateMax, dateMin);
+			doLookup(robot, res, dateMax, dateMin, matchDefault[1]);
+		} else {
+			_utils2['default'].printErrToClient('Nope, didn\'t understand that!');
 		}
 	});
 };
@@ -329,19 +333,25 @@ module.exports = function (robot) {
  * @param dateMin
  */
 function doLookup(robot, res, dateMax, dateMin) {
+	var project = arguments.length <= 4 || arguments[4] === undefined ? undefined : arguments[4];
+
 	res.send('Hang tight while I look up ' + _utils2['default'].dateToFriendlyDate(dateMin) + ' to ' + _utils2['default'].dateToFriendlyDate(dateMax));
-	getChangedIssues(dateMax, dateMin).then(function (issues) {
+	getChangedIssues(dateMax, dateMin, project).then(function (issues) {
 		return parseChangedIssues(issues, dateMax, dateMin);
-	}).then(function (issues) {
+	})
+	//.then(function (issues) {
+	//	fs.outputJson('./sample-json.json', issues[issues.length-1]);
+	//	return issues;
+	//})
+	.then(function (issues) {
 		return renderTemplate(issues, 'changedIssues');
 	}).then(function (issues) {
-
 		if (issues.length) {
 			_utils2['default'].sendMessages(robot, res, issues);
 		} else {
 			res.send('Nope, nothing found for those dates.');
 		}
 	})['catch'](function (err) {
-		_utils2['default'].printErr(err);
+		_utils2['default'].printErrToClient(err, robot, res);
 	});
 }

@@ -7,14 +7,6 @@ var SLACK_MAX_MESSAGE_SIZE = 4000;
 
 var moment = require('moment');
 
-var _statusToEmoji = {
-	'In Production': ':white_check_mark:',
-	'In Staging': ':white_check_mark:',
-	'In Progress': ':tulip:',
-	'Resolved': ':turtle:',
-	'Open': ':small_blue_diamond:'
-};
-
 var utils = {
 
 	jiraDateStrToMoment: function jiraDateStrToMoment(jiraDateStr) {
@@ -25,15 +17,23 @@ var utils = {
 		return str.replace(/(\r\n|\n|\r)/gm, ' ');
 	},
 
-	statusToEmoji: function statusToEmoji(status) {
-		if (_statusToEmoji.hasOwnProperty(status)) {
-			return _statusToEmoji[status];
+	printErrToClient: function printErrToClient(err, robot, res) {
+		if (typeof err === 'object') {
+			if (err.errorMessages) {
+				utils.sendMessages(robot, res, 'ERROR: ' + err.errorMessages);
+			} else {
+				utils.printErrToServer(err);
+			}
 		} else {
-			return status;
+			if (typeof err === 'string') {
+				utils.sendMessages(robot, res, 'ERROR: ' + err);
+			} else {
+				utils.printErrToServer(err);
+			}
 		}
 	},
 
-	printErr: function printErr(err) {
+	printErrToServer: function printErrToServer(err) {
 		console.log('ERROR!');
 		if (err.code) {
 			if (err.code === 'ENOTFOUND') {
@@ -183,7 +183,10 @@ var utils = {
   */
 	sendMessages: function sendMessages(robot, res, messages) {
 		// TODO: Also accept objects (which will send as attachments)
-		// TODO: Also accept non-array messages.
+		if (typeof messages === 'string') {
+			messages = [messages];
+		}
+
 		var messagesAttachments = messages.map(function (message) {
 			return utils.tryParseJSON(utils.removeLineBreaks(message));
 		});

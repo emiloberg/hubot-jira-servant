@@ -1,27 +1,24 @@
-{{!--
-{{statusEmoji}} *{{key}} {{{summary}}}*
-    {{url}}
-{{#each history}}
-    {{actor}}
-{{#each entries}}
-{{#is action 'created'}}
-        {{action}} the issue
-{{else}}
-        {{action}} '{{field}}' to '{{{truncate toNoLb 70 "..."}}}'
-{{/is}}
-{{/each}}
-{{/each}}
---}}
 {
-    "fallback": "{{key}} {{summary}} {{url}}",
-    "title": "{{key}} - {{summary}}",
-    "title_link": "{{url}}",
+    "mrkdwn_in": ["fields"], {{!-- tell Slack to enable markdown in the "fields" fields --}}
+    "fallback": "{{key}} {{fields.summary}} {{_custom.url}}",
+    "title": "{{key}} - {{fields.summary}}",
+    "title_link": "{{_custom.urlToIssue}}",
     "fields": [
         {
-            "title": "Changed",
-            "value": "{{#each history}}{{actor}}\n{{#each entries}}   {{#is action 'created'}}created the issue{{else}}{{field}} → {{{truncate toNoLb 70 "..."}}}{{/is}}\n{{/each}}{{/each}}",
+            "value": "{{#each _custom.history}}{{actor}}\n{{#each entries}}   {{#is action 'created'}}created the issue{{else}}{{field}} → {{#if toString}}`{{{truncate toString 70 "..."}}}`{{else}}_null_{{/if}}{{/is}}\n{{/each}}{{/each}}",
             "short": true
+        },
+        {
+        "value": "*Status:* {{fields.status.name}}{{#if fields.assignee.displayName}}\n*Assignee:* {{fields.assignee.displayName}}{{/if}}",
+        "short": true
         }
-    ],
-    "color": "#7CD197"
+]
+    {{#is fields.status.id '1'}}, "color": "#E3E4E6"{{/is}} {{!-- Open --}}
+    {{#is fields.status.id '4'}}, "color": "#E3E4E6"{{/is}} {{!-- Reopened --}}
+    {{#is fields.status.id '3'}}, "color": "#DE9E31"{{/is}} {{!-- In Progress --}}
+    {{#is fields.status.id '5'}}, "color": "#2FA44F"{{/is}} {{!-- Resolved --}}
+    {{#is fields.status.id '6'}}, "color": "#2FA44F"{{/is}} {{!-- Done --}}
+    {{#is fields.status.id '10000'}}, "color": "#555555"{{/is}} {{!-- Custom Jira Status: Signed-off --}}
+    {{#is fields.status.id '10202'}}, "color": "#333333"{{/is}} {{!-- Custom Jira Status: In Staging --}}
+    {{#is fields.status.id '10204'}}, "color": "#000000"{{/is}} {{!-- Custom Jira Status: In Production --}}
 }
