@@ -44,7 +44,7 @@ Then add **hubot-jira-servant** to your `external-scripts.json`:
 Start Hubot with these 4 environment variables:
 
 ```
-HUBOT_JIRA_HOST=your-jira.atlassian.net
+HUBOT_JIRA_HOST=your-jira.atlassian.net # NOTE: No 'http://'
 HUBOT_JIRA_USER=username
 HUBOT_JIRA_PASS=password
 HUBOT_JIRA_DEFAULT_PROJECT=ABC
