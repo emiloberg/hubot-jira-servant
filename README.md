@@ -1,12 +1,18 @@
 # hubot-jira-servant
 
-Connects Hubot with Jira. 
+Connects Hubot with Jira.
 
-# WORK IN PROGRESS! But in active development. Wait a few weeks for stable version.
+Made for Slack but should be usable with other interfaces as well
 
-Made for Slack but should be usable with other interfaces as well.
+## Work in progress
+This is very much a work in progress. Currently displaying _changed_ issues (e.g. "what issues was changed yesterday?")  is supported.
 
-### Changed issues commands:
+## Screenshot
+
+![Screenshot](https://raw.githubusercontent.com/emiloberg/hubot-jira-servant/master/docs/screenshot.png)
+
+
+## Commands:
 Perfect for answering the question "What happend yesterday?"
 
 * `hubot jira changed <project>` - Get yesterdays changed Jira issues
@@ -21,9 +27,11 @@ If the project key `<project>` (e.g. `ABC` if you have a project named ABC in Ji
 
 ## Installation
 
-In hubot project repo, run:
+In Hubot root folder, run:
 
-`npm install hubot-jira-servant --save`
+```
+npm install hubot-jira-servant --save
+```
 
 Then add **hubot-jira-servant** to your `external-scripts.json`:
 
@@ -31,13 +39,6 @@ Then add **hubot-jira-servant** to your `external-scripts.json`:
 [
   "hubot-jira-servant"
 ]
-```
-
-Install dependenceis:
-
-```
-cd node_modules/hubot-jira-servant
-npm install
 ```
 
 Start Hubot with these 4 environment variables:
@@ -50,39 +51,12 @@ HUBOT_JIRA_DEFAULT_PROJECT=ABC
 ```
 Default project is the project key for your default project, usually a couple of letters before the issue number, e.g. `ABC` in _ABC-123_.
 
-## Sample Interaction
-
-```
-user> hubot jira changed
-hubot> 
-PROJ-1195 Add logic for when renewal is possible
-    https://sample-jira.atlassian.net/browse/PROJ-1195
-    Emil Öberg
-        changed 'status' to 'In Production'
-        changed 'resolution' to 'Done'
-    Gustav Carlson
-        changed 'Epic Link' to 'PROJ-289'        
-
-PROJ-1194 Urgent content translations
-    https://sample-jira.atlassian.net/browse/PROJ-1194
-    Gustav Carlson
-        created the issue
-
-PROJ-1164 Integrate service request with e-payment
-    https://sample-jira.atlassian.net/browse/PROJ-1164
-    Björn Ryding
-        changed 'status' to 'Resolved'
-        changed 'summary' to 'Add toggle buttons for the five types (health product, medical devi...'        
-
-PROJ-1161 Build controller for medical device
-    https://sample-jira.atlassian.net/browse/PROJ-1161
-    Erik Andersson
-        changed 'status' to 'In Progress'
-```
-
 ## Development
 This module is developed in EcmaScript 2015. All source files lives in `/src` and gets transpiled into `/dist`. Use provided gulp script (by running `gulp` in the root folder of the module) to start a watcher which automagically transpiles files when they're changed.
 
-### changed-issues.hbs
-* To get a list of all available statuses, go to: `https://{your-account}.atlassian.net/rest/api/2/status`
+### Change message output
+To change the message output, you may modify the `changed-issues.hbs` file. This is a [handlebars](handlebarsjs.com) file.
+
+* To see what variables are available to you, check the provided sample json file in `/docs`.
+* To get a list of all available Jira statuses (used to set the color of the message in the default message), go to: `https://{your-account}.atlassian.net/rest/api/2/status`
 * Read more about formatting Slack messages: [https://api.slack.com/docs/formatting](https://api.slack.com/docs/formatting)
