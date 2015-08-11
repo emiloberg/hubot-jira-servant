@@ -5,6 +5,8 @@
 //   HUBOT_JIRA_USER
 //   HUBOT_JIRA_PASS
 //   HUBOT_JIRA_HOST
+//   HUBOT_JIRA_DEFAULT_PROJECT
+//   HUBOT_JIRA_ACTION_BLACKLIST (optional)
 //
 // Commands:
 //   hubot jira changed [project] - Get yesterdays changed jira issues
