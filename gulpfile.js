@@ -7,6 +7,7 @@ var chalk = require('chalk');
 
 var config = {
 	es6files: ['src/**/*.js', 'src/*.js', '!src/node_modules/**/*.js'],
+	watchFiles: ['src/**/*.{js,hbs}', 'src/*.{js,hbs}', '!src/node_modules/**/*.js'],
 	outPath: 'dist',
 	resourcesPath: ['src/*_modules/**', 'src/*emplates/**', 'src/package.json']
 };
@@ -34,7 +35,7 @@ gulp.task('lint', function () {
 
 gulp.task('default', function(callback) {
 	console.log(chalk.blue('Watcher started, will rebuild when files change'));
-	gulp.watch(config.es6files, function () {
+	gulp.watch(config.watchFiles, function () {
 			runSequence(
 				'_clean',
 				'_transpile',
