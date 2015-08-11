@@ -69,5 +69,6 @@ This module is developed in EcmaScript 2015. All source files lives in `/src` an
 To change the message output, you may modify the `changed-issues.hbs` file. This is a [handlebars](handlebarsjs.com) file.
 
 * To see what variables are available to you, check the provided sample json file in `/docs`.
+* * All [Swag](https://github.com/elving/swag) Handlebars helpers may be used. E.g. `{{uppercase fields.summary}}`.
 * To get a list of all available Jira statuses (used to set the color of the message in the default message), go to: `https://{your-account}.atlassian.net/rest/api/2/status`
 * Read more about formatting Slack messages: [https://api.slack.com/docs/formatting](https://api.slack.com/docs/formatting)
