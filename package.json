@@ -1,7 +1,7 @@
 {
   "name": "hubot-jira-servant",
   "description": "Connects Hubot with Jira",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "Emil Oberg <emil.oberg@monator.com>",
   "license": "MIT",
   "keywords": [
@@ -23,7 +23,7 @@
     "uuid": "^2.0.1",
     "fs-extra": "^0.18.4",
     "jira-connector": "^1.0.0",
-    "moment": "^2.10.3"    
+    "moment": "^2.10.3"
   },
   "peerDependencies": {
     "hubot": "2.x"
