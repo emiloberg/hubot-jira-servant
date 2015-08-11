@@ -50,7 +50,17 @@ HUBOT_JIRA_USER=username
 HUBOT_JIRA_PASS=password
 HUBOT_JIRA_DEFAULT_PROJECT=ABC
 ```
-Default project is the project key for your default project, usually a couple of letters before the issue number, e.g. `ABC` in _ABC-123_.
+Default project is the project key for your default project, usually a couple of letters before the issue number, e.g. `ABC` in _ABC-123_. If you don't give another project key in your command, e.g. `jira changed  DEF` this is the key being used.
+
+### Optional configuration
+Sometimes there are information in Jira which you aren't that interested in. If there are some actions (e.g. the assignee of an issue has been changed) which you don't want Hubot to show you, you may blacklist the actions by adding an environment variable:
+
+``` 
+export HUBOT_JIRA_ACTION_BLACKLIST="assignee|rank"
+```
+
+The above will make sure that `assignee` or `rank` changes never show. Note the quotation marks, `"` and the pipe, `|`, delimiting multiple entries. The "action" is the wording which goes before the arrow in the output message. In the screenshot above, the actions would be `description`, `Request participants` and `status`.
+
 
 ## Development
 This module is developed in EcmaScript 2015. All source files lives in `/src` and gets transpiled into `/dist`. Use provided gulp script (by running `gulp` in the root folder of the module) to start a watcher which automagically transpiles files when they're changed.

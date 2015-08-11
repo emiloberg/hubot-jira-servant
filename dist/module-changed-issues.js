@@ -18,9 +18,9 @@
 
 'use strict';
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 // Internal
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _jira = require('./jira');
 
@@ -48,7 +48,7 @@ var entities = new Entities();
 
 // Settings
 var settings = {
-	historyFieldBlacklist: ['assignee', 'rank'],
+	historyFieldBlacklist: [],
 	paths: {
 		templates: {
 			changedIssues: 'changed-issues.hbs'
@@ -65,14 +65,26 @@ settings.urlToIssue = 'https://' + process.env.HUBOT_JIRA_HOST + '/browse/';
 /**
  * Initialize app:
  *
- * Read and save all handlebar templates
- * Set Jira credentials
  */
 (function init() {
+	/**
+  * Read and save all handlebar templates
+  */
 	Object.keys(settings.paths.templates).forEach(function (key) {
 		var templatePath = path.resolve(__dirname, 'templates', settings.paths.templates[key]);
 		settings.templates[key] = handlebars.compile(fs.readFileSync(templatePath, { encoding: 'UTF-8' }));
 	});
+
+	/**
+  * Parse Blacklist environment variable if available
+  */
+	if (process.env.HUBOT_JIRA_ACTION_BLACKLIST !== undefined) {
+		try {
+			settings.historyFieldBlacklist = process.env.HUBOT_JIRA_ACTION_BLACKLIST.split('|');
+		} catch (err) {
+			console.log("ERROR: Could not read environment parameter HUBOT_JIRA_ACTION_BLACKLIST. It's probably malformed");
+		}
+	}
 })();
 
 /**
@@ -286,7 +298,7 @@ module.exports = function (robot) {
 			}).then(function () {
 				var diff = moment(dateMax).diff(dateMin, 'days');
 				if (diff === 0) {
-					throw 'You really should try to give me at least one day to search for. I can\'t really do anything with this information, can I?';
+					throw "You really should try to give me at least one day to search for. I can't really do anything with this information, can I?";
 				} else if (diff < 0) {
 					throw 'Ridiculous! the start date you gave me happens after the end date. What am I supposed to do with that? Huh?';
 				}
@@ -320,7 +332,7 @@ module.exports = function (robot) {
 			dateMin = moment(dateMax).subtract(1, 'days').format('YYYY-MM-DD');
 			doLookup(robot, res, dateMax, dateMin, matchDefault[1]);
 		} else {
-			_utils2['default'].printErrToClient('Nope, didn\'t understand that!');
+			_utils2['default'].printErrToClient("Nope, didn't understand that!");
 		}
 	});
 };

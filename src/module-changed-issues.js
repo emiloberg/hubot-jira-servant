@@ -40,10 +40,7 @@ let entities = new Entities();
 
 // Settings
 let settings = {
-	historyFieldBlacklist: [
-		'assignee',
-		'rank'
-	],
+	historyFieldBlacklist: [],
 	paths: {
 		templates: {
 			changedIssues: 'changed-issues.hbs'
@@ -62,14 +59,26 @@ settings.urlToIssue = `https://${process.env.HUBOT_JIRA_HOST}/browse/`;
 /**
  * Initialize app:
  *
- * Read and save all handlebar templates
- * Set Jira credentials
  */
 (function init() {
+	/**
+	 * Read and save all handlebar templates
+	 */
 	Object.keys(settings.paths.templates).forEach(key => {
 		let templatePath = path.resolve(__dirname, 'templates', settings.paths.templates[key]);
 		settings.templates[key] = handlebars.compile(fs.readFileSync(templatePath, {encoding: 'UTF-8'}));
 	});
+
+	/**
+	 * Parse Blacklist environment variable if available
+	 */
+	if (process.env.HUBOT_JIRA_ACTION_BLACKLIST !== undefined) {
+		try {
+			settings.historyFieldBlacklist = process.env.HUBOT_JIRA_ACTION_BLACKLIST.split('|');
+		} catch (err) {
+			console.log("ERROR: Could not read environment parameter HUBOT_JIRA_ACTION_BLACKLIST. It's probably malformed");
+		}
+	}
 })();
 
 

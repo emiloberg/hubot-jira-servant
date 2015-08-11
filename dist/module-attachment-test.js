@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //Docs Attachments: https://api.slack.com/docs/attachments
 

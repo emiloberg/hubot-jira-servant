@@ -68,10 +68,10 @@ var utils = {
 	validateDateIsntFuture: function validateDateIsntFuture(dateStr) {
 		return new Promise(function (resolve, reject) {
 			if (!moment(dateStr).isValid()) {
-				return reject('This is pointless. You\'re not giving me real dates to work with!');
+				return reject("This is pointless. You're not giving me real dates to work with!");
 			}
 			if (moment().diff(dateStr, 'days') < 0) {
-				return reject('You can\'t really search for events which happens in the future, can you silly?');
+				return reject("You can't really search for events which happens in the future, can you silly?");
 			}
 			resolve(dateStr);
 		});
@@ -204,7 +204,7 @@ var utils = {
 	tryParseJSON: function tryParseJSON(jsonString) {
 		try {
 			var o = JSON.parse(jsonString);
-			if (o && typeof o === 'object' && o !== null) {
+			if (o && typeof o === "object" && o !== null) {
 				return o;
 			}
 		} catch (e) {}
