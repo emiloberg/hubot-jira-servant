@@ -1,0 +1,920 @@
+{
+  "expand": "operations,versionedRepresentations,editmeta,changelog,transitions,renderedFields",
+  "id": "10489",
+  "self": "https://example-team.atlassian.net/rest/api/2/issue/10489",
+  "key": "ABC-222",
+  "fields": {
+    "issuetype": {
+      "self": "https://example-team.atlassian.net/rest/api/2/issuetype/10001",
+      "id": "10001",
+      "description": "Created by JIRA Agile - do not edit or delete. Issue type for a user story.",
+      "iconUrl": "https://example-team.atlassian.net/images/icons/ico_story.png",
+      "name": "Story",
+      "subtask": false
+    },
+    "timespent": null,
+    "project": {
+      "self": "https://example-team.atlassian.net/rest/api/2/project/10000",
+      "id": "10000",
+      "key": "ABC",
+      "name": "Example Project",
+      "avatarUrls": {
+        "48x48": "https://example-team.atlassian.net/secure/projectavatar?pid=10000&avatarId=10300",
+        "24x24": "https://example-team.atlassian.net/secure/projectavatar?size=small&pid=10000&avatarId=10300",
+        "16x16": "https://example-team.atlassian.net/secure/projectavatar?size=xsmall&pid=10000&avatarId=10300",
+        "32x32": "https://example-team.atlassian.net/secure/projectavatar?size=medium&pid=10000&avatarId=10300"
+      }
+    },
+    "fixVersions": [],
+    "aggregatetimespent": null,
+    "resolution": null,
+    "customfield_10500": {
+      "completeCycles": []
+    },
+    "customfield_10501": {
+      "completeCycles": []
+    },
+    "customfield_10502": {
+      "completeCycles": []
+    },
+    "customfield_10700": null,
+    "customfield_10701": null,
+    "resolutiondate": null,
+    "workratio": -1,
+    "lastViewed": "2015-07-16T19:23:57.199+0400",
+    "watches": {
+      "self": "https://example-team.atlassian.net/rest/api/2/issue/ABC-222/watchers",
+      "watchCount": 1,
+      "isWatching": false
+    },
+    "created": "2014-04-14T05:58:10.000+0400",
+    "customfield_10020": null,
+    "customfield_10021": "Not Started",
+    "priority": {
+      "self": "https://example-team.atlassian.net/rest/api/2/priority/3",
+      "iconUrl": "https://example-team.atlassian.net/images/icons/priorities/major.png",
+      "name": "Major",
+      "id": "3"
+    },
+    "customfield_10100": null,
+    "customfield_10024": null,
+    "customfield_10300": null,
+    "labels": [],
+    "customfield_10016": null,
+    "customfield_10017": null,
+    "customfield_10018": null,
+    "customfield_10019": null,
+    "timeestimate": null,
+    "aggregatetimeoriginalestimate": null,
+    "versions": [],
+    "issuelinks": [],
+    "assignee": null,
+    "updated": "2015-08-04T13:59:36.000+0400",
+    "status": {
+      "self": "https://example-team.atlassian.net/rest/api/2/status/1",
+      "description": "The issue is open and ready for the assignee to start work on it.",
+      "iconUrl": "https://example-team.atlassian.net/images/icons/statuses/open.png",
+      "name": "Open",
+      "id": "1",
+      "statusCategory": {
+        "self": "https://example-team.atlassian.net/rest/api/2/statuscategory/2",
+        "id": 2,
+        "key": "new",
+        "colorName": "blue-gray",
+        "name": "To Do"
+      }
+    },
+    "components": [],
+    "timeoriginalestimate": null,
+    "description": "OMR 100",
+    "customfield_10012": null,
+    "customfield_10013": null,
+    "customfield_10014": null,
+    "customfield_10015": null,
+    "customfield_10005": null,
+    "customfield_10401": {
+      "completeCycles": []
+    },
+    "customfield_10600": [],
+    "customfield_10006": "191",
+    "customfield_10007": [
+      "com.atlassian.greenhopper.service.sprint.Sprint@ff112b[id=20,rapidViewId=1,state=FUTURE,name=S9+1: DRUG CONTROL,startDate=<null>,endDate=<null>,completeDate=<null>,sequence=20]"
+    ],
+    "customfield_10008": "ABC-716",
+    "aggregatetimeestimate": null,
+    "summary": "As a power user, I can specify files or folders to backup based on file size, date created and date modified.",
+    "creator": {
+      "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+      "name": "johndoe",
+      "key": "johndoe",
+      "emailAddress": "john.doe@example.com",
+      "avatarUrls": {
+        "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+        "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+        "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+        "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+      },
+      "displayName": "John Doejohndoe",
+      "active": true,
+      "timeZone": "Asia/Dubai"
+    },
+    "subtasks": [
+      {
+        "id": "14109",
+        "key": "ABC-902",
+        "self": "https://example-team.atlassian.net/rest/api/2/issue/14109",
+        "fields": {
+          "summary": "Build entity (model) for manufacturer",
+          "status": {
+            "self": "https://example-team.atlassian.net/rest/api/2/status/1",
+            "description": "The issue is open and ready for the assignee to start work on it.",
+            "iconUrl": "https://example-team.atlassian.net/images/icons/statuses/open.png",
+            "name": "Open",
+            "id": "1",
+            "statusCategory": {
+              "self": "https://example-team.atlassian.net/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "https://example-team.atlassian.net/rest/api/2/priority/3",
+            "iconUrl": "https://example-team.atlassian.net/images/icons/priorities/major.png",
+            "name": "Major",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "https://example-team.atlassian.net/rest/api/2/issuetype/5",
+            "id": "5",
+            "description": "The sub-task of the issue",
+            "iconUrl": "https://example-team.atlassian.net/images/icons/issuetypes/subtask_alternate.png",
+            "name": "Sub-task",
+            "subtask": true
+          }
+        }
+      }
+    ],
+    "reporter": {
+      "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+      "name": "johndoe",
+      "key": "johndoe",
+      "emailAddress": "john.doe@example.com",
+      "avatarUrls": {
+        "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+        "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+        "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+        "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+      },
+      "displayName": "John Doejohndoe",
+      "active": true,
+      "timeZone": "Asia/Dubai"
+    },
+    "customfield_10000": null,
+    "aggregateprogress": {
+      "progress": 0,
+      "total": 0
+    },
+    "customfield_10001": null,
+    "customfield_10002": null,
+    "customfield_10200": "1|hzzyiw:5",
+    "customfield_10003": null,
+    "customfield_10400": null,
+    "customfield_10004": 2,
+    "environment": null,
+    "duedate": null,
+    "progress": {
+      "progress": 0,
+      "total": 0
+    },
+    "votes": {
+      "self": "https://example-team.atlassian.net/rest/api/2/issue/ABC-222/votes",
+      "votes": 0,
+      "hasVoted": false
+    }
+  },
+  "changelog": {
+    "startAt": 0,
+    "maxResults": 23,
+    "total": 23,
+    "histories": [
+      {
+        "id": "11914",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-04-14T06:45:32.688+0400",
+        "items": [
+          {
+            "field": "Sprint",
+            "fieldtype": "custom",
+            "from": null,
+            "fromString": null,
+            "to": "6",
+            "toString": "S5: MOST INTRA FUNCTIONALITY"
+          }
+        ]
+      },
+      {
+        "id": "11915",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-04-14T06:45:37.371+0400",
+        "items": [
+          {
+            "field": "Story Points",
+            "fieldtype": "custom",
+            "from": null,
+            "fromString": null,
+            "to": null,
+            "toString": "2"
+          }
+        ]
+      },
+      {
+        "id": "11917",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-04-14T06:58:55.420+0400",
+        "items": [
+          {
+            "field": "summary",
+            "fieldtype": "jira",
+            "from": null,
+            "fromString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified.",
+            "to": null,
+            "toString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified."
+          }
+        ]
+      },
+      {
+        "id": "11927",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-04-14T07:01:07.202+0400",
+        "items": [
+          {
+            "field": "summary",
+            "fieldtype": "jira",
+            "from": null,
+            "fromString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified.",
+            "to": null,
+            "toString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified."
+          }
+        ]
+      },
+      {
+        "id": "11928",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-04-14T07:01:21.545+0400",
+        "items": [
+          {
+            "field": "summary",
+            "fieldtype": "jira",
+            "from": null,
+            "fromString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified.",
+            "to": null,
+            "toString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified."
+          }
+        ]
+      },
+      {
+        "id": "14923",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-08-28T17:31:38.390+0400",
+        "items": [
+          {
+            "field": "Sprint",
+            "fieldtype": "custom",
+            "from": "6",
+            "fromString": "S5: MID-BV INTER FUNCTIONALITY",
+            "to": "7",
+            "toString": "S6: MOST INTRA FUNCTIONALITY"
+          }
+        ]
+      },
+      {
+        "id": "15732",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-09-23T18:39:04.004+0400",
+        "items": [
+          {
+            "field": "Epic Link",
+            "fieldtype": "custom",
+            "from": null,
+            "fromString": null,
+            "to": "12201",
+            "toString": "ABC-398"
+          }
+        ]
+      },
+      {
+        "id": "16286",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-10-19T15:51:18.918+0400",
+        "items": [
+          {
+            "field": "Sprint",
+            "fieldtype": "custom",
+            "from": "7",
+            "fromString": "S6: MOST INTER FUNCTIONALITY",
+            "to": "8",
+            "toString": "S7: MOST INTRA FUNCTIONALITY"
+          }
+        ]
+      },
+      {
+        "id": "16313",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-10-19T15:51:24.307+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked higher"
+          }
+        ]
+      },
+      {
+        "id": "17614",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-12-08T11:32:10.230+0400",
+        "items": [
+          {
+            "field": "Sprint",
+            "fieldtype": "custom",
+            "from": "8",
+            "fromString": "S7: MOST INTRA FUNCTIONALITY",
+            "to": "9",
+            "toString": "S8: REMAINING INTER & INTRA"
+          }
+        ]
+      },
+      {
+        "id": "17641",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2014-12-08T11:32:16.242+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked higher"
+          }
+        ]
+      },
+      {
+        "id": "19421",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-02-04T17:53:32.977+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked higher"
+          }
+        ]
+      },
+      {
+        "id": "20353",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-02-23T14:21:10.043+0400",
+        "items": [
+          {
+            "field": "Epic Link",
+            "fieldtype": "custom",
+            "from": "12201",
+            "fromString": "ABC-398",
+            "to": "13704",
+            "toString": "ABC-716"
+          }
+        ]
+      },
+      {
+        "id": "20380",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-02-23T14:23:34.079+0400",
+        "items": [
+          {
+            "field": "Sprint",
+            "fieldtype": "custom",
+            "from": "9",
+            "fromString": "S8: REMAINING INTER & INTRA",
+            "to": "10",
+            "toString": "S9: COMPLETION"
+          }
+        ]
+      },
+      {
+        "id": "20395",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-02-23T14:23:38.609+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked lower"
+          }
+        ]
+      },
+      {
+        "id": "20580",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-02-23T16:29:54.851+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked higher"
+          }
+        ]
+      },
+      {
+        "id": "22117",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-04-13T16:37:03.456+0400",
+        "items": [
+          {
+            "field": "summary",
+            "fieldtype": "jira",
+            "from": null,
+            "fromString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified.",
+            "to": null,
+            "toString": "As a power user, I can specify files or folders to backup based on file size, date created and date modified."
+          }
+        ]
+      },
+      {
+        "id": "23775",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-06-08T12:27:12.414+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked lower"
+          }
+        ]
+      },
+      {
+        "id": "23794",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-06-08T12:27:19.026+0400",
+        "items": [
+          {
+            "field": "Sprint",
+            "fieldtype": "custom",
+            "from": "10",
+            "fromString": "S9: COMPLETION",
+            "to": "20",
+            "toString": "S10: Drug Control"
+          }
+        ]
+      },
+      {
+        "id": "24710",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-07-09T12:59:29.577+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked higher"
+          }
+        ]
+      },
+      {
+        "id": "24808",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-07-13T10:43:04.177+0400",
+        "items": [
+          {
+            "field": "summary",
+            "fieldtype": "jira",
+            "from": null,
+            "fromString": "As a power user, I can specify files or folders to backup based on file size, date created and date modified.",
+            "to": null,
+            "toString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified."
+          }
+        ]
+      },
+      {
+        "id": "24818",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-07-13T10:49:18.591+0400",
+        "items": [
+          {
+            "field": "Rank",
+            "fieldtype": "custom",
+            "from": "",
+            "fromString": "",
+            "to": "",
+            "toString": "Ranked higher"
+          }
+        ]
+      },
+      {
+        "id": "25152",
+        "author": {
+          "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+          "name": "johndoe",
+          "key": "johndoe",
+          "emailAddress": "john.doe@example.com",
+          "avatarUrls": {
+            "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+            "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+            "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+            "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+          },
+          "displayName": "John Doejohndoe",
+          "active": true,
+          "timeZone": "Asia/Dubai"
+        },
+        "created": "2015-08-04T13:59:36.191+0400",
+        "items": [
+          {
+            "field": "summary",
+            "fieldtype": "jira",
+            "from": null,
+            "fromString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified.",
+            "to": null,
+            "toString": "As a power user, I can specify files or folders to backup based on file size, date created and date modified."
+          }
+        ]
+      }
+    ]
+  },
+  "_custom": {
+    "summaryNoLb": "As a power user, I can specify files or folders to backup based on file size, date created and date modified.",
+    "urlToIssue": "https://example-team.atlassian.net/browse/ABC-222",
+    "history": [
+      {
+        "actor": "John Doejohndoe",
+        "entries": [
+          {
+            "uuid": "10e726b0-b26a-4df6-8d51-629093983937",
+            "time": "2015-08-04 11:59:36",
+            "action": "changed",
+            "actor": "John Doejohndoe",
+            "field": "summary",
+            "fromString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified.",
+            "toString": "As a power user, I can specify files or folders to backup based on file size, date created and date modified.",
+            "original": {
+              "id": "25152",
+              "author": {
+                "self": "https://example-team.atlassian.net/rest/api/2/user?username=johndoe",
+                "name": "johndoe",
+                "key": "johndoe",
+                "emailAddress": "john.doe@example.com",
+                "avatarUrls": {
+                  "48x48": "https://example-team.atlassian.net/secure/useravatar?ownerId=johndoe&avatarId=10301",
+                  "24x24": "https://example-team.atlassian.net/secure/useravatar?size=small&ownerId=johndoe&avatarId=10301",
+                  "16x16": "https://example-team.atlassian.net/secure/useravatar?size=xsmall&ownerId=johndoe&avatarId=10301",
+                  "32x32": "https://example-team.atlassian.net/secure/useravatar?size=medium&ownerId=johndoe&avatarId=10301"
+                },
+                "displayName": "John Doejohndoe",
+                "active": true,
+                "timeZone": "Asia/Dubai"
+              },
+              "created": "2015-08-04T13:59:36.191+0400",
+              "items": [
+                {
+                  "field": "summary",
+                  "fieldtype": "jira",
+                  "from": null,
+                  "fromString": "As a power user, I can specify files or folders to backup based on file size, date created, date modified.",
+                  "to": null,
+                  "toString": "As a power user, I can specify files or folders to backup based on file size, date created and date modified."
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
