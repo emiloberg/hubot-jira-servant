@@ -9,7 +9,7 @@ var config = {
 	es6files: ['src/**/*.js', 'src/*.js', '!src/node_modules/**/*.js'],
 	watchFiles: ['src/**/*.{js,hbs}', 'src/*.{js,hbs}', '!src/node_modules/**/*.js'],
 	outPath: 'dist',
-	resourcesPath: ['src/*_modules/**', 'src/*emplates/**', 'src/package.json']
+	resourcesPath: ['src/*_modules/**', 'src/*emplates/**']
 };
 
 gulp.task('_clean', function(cb) {
