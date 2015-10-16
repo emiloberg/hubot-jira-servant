@@ -188,7 +188,7 @@ var utils = {
 		}
 
 		var messagesAttachments = messages.map(function (message) {
-			return utils.tryParseJSON(utils.removeLineBreaks(message));
+			return utils.tryParseJSON(utils.removeLineBreaks(message).replace(/\t/g, '    '));
 		});
 		var isJson = messagesAttachments.every(function (message) {
 			return message !== false;
