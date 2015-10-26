@@ -131,7 +131,7 @@ const utils = {
 	 * 		(this number is actually 1, but Slack does let you burst
 	 * 		a couple of messages for a short period of time).
 	 * 	2) The maximum size of each message
-	 * 		(16kb. Slack recommends the messages to be limitede to
+	 * 		(16kb. Slack recommends the messages to be limited to
 	 * 		4000 characters).
 	 *
 	 * To comply with these limits we'll combine messages up to
