@@ -44,6 +44,10 @@ var handlebars = require('handlebars');
 var Swag = require('swag');
 Swag.registerHelpers(handlebars);
 
+handlebars.registerHelper('cleanString', function (text) {
+	return new handlebars.SafeString(text.replace(/"/g, '\\"'));
+});
+
 // HTML Decode
 var Entities = require('html-entities').AllHtmlEntities;
 var entities = new Entities();

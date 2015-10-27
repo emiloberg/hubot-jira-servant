@@ -192,7 +192,7 @@ const utils = {
 			messages = [messages];
 		}
 
-		let messagesAttachments = messages.map(message => utils.tryParseJSON(utils.removeLineBreaks(message)));
+		let messagesAttachments = messages.map(message => utils.tryParseJSON(utils.removeLineBreaks(message).replace(/\t/g, '    ')))
 		let isJson = messagesAttachments.every(message => message !== false);
 
 		if(isJson) {
