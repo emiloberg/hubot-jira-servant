@@ -13,8 +13,12 @@ var utils = {
 		return moment(jiraDateStr, 'YYYY-MM-DDTHH:mm:ss.SSSZ');
 	},
 
-	removeLineBreaks: function removeLineBreaks(str) {
-		return str.replace(/(\r\n|\n|\r)/gm, ' ');
+	cleanWhiteSpace: function cleanWhiteSpace() {
+		var str = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+
+		str = str.replace(/(\r\n|\n|\r)/gm, ' ');
+		str = str.replace(/\t/g, '    ');
+		return str;
 	},
 
 	printErrToClient: function printErrToClient(err, robot, res) {
@@ -129,7 +133,7 @@ var utils = {
   * 		(this number is actually 1, but Slack does let you burst
   * 		a couple of messages for a short period of time).
   * 	2) The maximum size of each message
-  * 		(16kb. Slack recommends the messages to be limitede to
+  * 		(16kb. Slack recommends the messages to be limited to
   * 		4000 characters).
   *
   * To comply with these limits we'll combine messages up to
@@ -188,7 +192,7 @@ var utils = {
 		}
 
 		var messagesAttachments = messages.map(function (message) {
-			return utils.tryParseJSON(utils.removeLineBreaks(message).replace(/\t/g, '    '));
+			return utils.tryParseJSON(utils.cleanWhiteSpace(message));
 		});
 		var isJson = messagesAttachments.every(function (message) {
 			return message !== false;
