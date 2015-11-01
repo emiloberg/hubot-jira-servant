@@ -1,15 +1,15 @@
 {
     "mrkdwn_in": ["fields"], {{!-- tell Slack to enable markdown in the "fields" fields --}}
-    "fallback": "{{key}} {{fields.summary}} {{_custom.url}}",
-    "title": "{{key}} - {{fields.summary}}",
-    "title_link": "{{_custom.urlToIssue}}",
+    "fallback": "{{safe key}} {{safe fields.summary}} {{safe _custom.url}}",
+    "title": "{{safe key}} - {{safe fields.summary}}",
+    "title_link": "{{safe _custom.urlToIssue}}",
     "fields": [
         {
-            "value": "{{#each _custom.history}}{{actor}}\n{{#each entries}}   {{#is action 'created'}}created the issue{{else}}{{field}} → {{#if toString}}`{{{truncate toString 70 "..."}}}`{{else}}_null_{{/if}}{{/is}}\n{{/each}}{{/each}}",
+            "value": "{{#each _custom.history}}{{safe actor}}\n{{#each entries}}   {{#is action 'created'}}created the issue{{else}}{{safe field}} → {{#if toString}}`{{{safe (truncate toString 70 "...")}}}`{{else}}_null_{{/if}}{{/is}}\n{{/each}}{{/each}}",
             "short": true
         },
         {
-        "value": "*Status:* {{fields.status.name}}{{#if fields.assignee.displayName}}\n*Assignee:* {{fields.assignee.displayName}}{{/if}}",
+        "value": "*Status:* {{safe fields.status.name}}{{#if fields.assignee.displayName}}\n*Assignee:* {{safe fields.assignee.displayName}}{{/if}}",
         "short": true
         }
 ]

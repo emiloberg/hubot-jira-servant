@@ -11,8 +11,10 @@ const utils = {
 	},
 
 
-	removeLineBreaks(str) {
-		return str.replace(/(\r\n|\n|\r)/gm, ' ');
+	cleanWhiteSpace(str = '') {
+		str = str.replace(/(\r\n|\n|\r)/gm, ' ');
+		str = str.replace(/\t/g, '    ');
+		return str;
 	},
 
 	printErrToClient(err, robot, res) {
@@ -146,20 +148,20 @@ const utils = {
 		let chunkedMessages = [];
 		let curCombinedLength = 0;
 		let index = 0;
-		
+
 		messages.forEach(message => {
-			let strMessage = JSON.stringify(message); 
+			let strMessage = JSON.stringify(message);
 			if (curCombinedLength + strMessage.length > SLACK_MAX_MESSAGE_SIZE) {
 				index = index + 1;
 				curCombinedLength = 0;
 			}
-		
+
 			if (chunkedMessages[index]) {
 				chunkedMessages[index].push(message);
 			} else {
 				chunkedMessages[index] = [message];
 			}
-		
+
 			curCombinedLength = curCombinedLength + strMessage.length;
 		});
 
@@ -170,7 +172,7 @@ const utils = {
 				attachments: message
 			});
 		});
-		
+
 	},
 
 
@@ -192,7 +194,7 @@ const utils = {
 			messages = [messages];
 		}
 
-		let messagesAttachments = messages.map(message => utils.tryParseJSON(utils.removeLineBreaks(message)));
+		let messagesAttachments = messages.map(message => utils.tryParseJSON(utils.cleanWhiteSpace(message)));
 		let isJson = messagesAttachments.every(message => message !== false);
 
 		if(isJson) {

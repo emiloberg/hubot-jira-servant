@@ -36,6 +36,13 @@ let handlebars = require('handlebars');
 let Swag = require('swag');
 Swag.registerHelpers(handlebars);
 
+handlebars.registerHelper('safe', function(text) {
+	text = text || '';
+	text = text.replace(/"/g, '\\"');
+	text = text.replace(/\\/g, '\\\\');
+	return new handlebars.SafeString(text);
+});
+
 // HTML Decode
 let Entities = require('html-entities').AllHtmlEntities;
 let entities = new Entities();
@@ -127,7 +134,7 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 
 		let flatHistory = [];
 		let out = {
-			summaryNoLb: utils.removeLineBreaks(entities.decode(issue.fields.summary.trim())),
+			summaryNoLb: utils.cleanWhiteSpace(entities.decode(issue.fields.summary.trim())),
 			urlToIssue: `${settings.urlToIssue}${issue.key}`,
 			parent: undefined,
 			history: []
@@ -138,7 +145,7 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 		 */
 		if (issue.fields.parent) {
 			out.parent = {
-				summaryNoLb: utils.removeLineBreaks(entities.decode(issue.fields.parent.fields.summary.trim()))
+				summaryNoLb: utils.cleanWhiteSpace(entities.decode(issue.fields.parent.fields.summary.trim()))
 			};
 		}
 
@@ -237,7 +244,7 @@ function parseChangedIssues(issues, dateMax, dateMin, historyFieldBlacklist = se
 		}
 
 		issue._custom = out;
-		
+
 		return issue;
 	})
 	/**

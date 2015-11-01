@@ -44,6 +44,13 @@ var handlebars = require('handlebars');
 var Swag = require('swag');
 Swag.registerHelpers(handlebars);
 
+handlebars.registerHelper('safe', function (text) {
+	text = text || '';
+	text = text.replace(/"/g, '\\"');
+	text = text.replace(/\\/g, '\\\\');
+	return new handlebars.SafeString(text);
+});
+
 // HTML Decode
 var Entities = require('html-entities').AllHtmlEntities;
 var entities = new Entities();
@@ -134,7 +141,7 @@ function parseChangedIssues(issues, dateMax, dateMin) {
 
 		var flatHistory = [];
 		var out = {
-			summaryNoLb: _utils2['default'].removeLineBreaks(entities.decode(issue.fields.summary.trim())),
+			summaryNoLb: _utils2['default'].cleanWhiteSpace(entities.decode(issue.fields.summary.trim())),
 			urlToIssue: '' + settings.urlToIssue + issue.key,
 			parent: undefined,
 			history: []
@@ -145,7 +152,7 @@ function parseChangedIssues(issues, dateMax, dateMin) {
    */
 		if (issue.fields.parent) {
 			out.parent = {
-				summaryNoLb: _utils2['default'].removeLineBreaks(entities.decode(issue.fields.parent.fields.summary.trim()))
+				summaryNoLb: _utils2['default'].cleanWhiteSpace(entities.decode(issue.fields.parent.fields.summary.trim()))
 			};
 		}
 
